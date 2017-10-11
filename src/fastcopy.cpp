@@ -1981,11 +1981,26 @@ BOOL FastCopy::IsOverWriteFile(FileStat *srcStat, FileStat *dstStat)
 				if ((srcStat->WriteTime() % 10000000) == 0
 				||  (dstStat->WriteTime() % 10000000) == 0) {
 					// タイムスタンプの差が 2 秒以内なら、 同一タイムスタンプとみなす
-					if (safe_add(dstStat->WriteTime(),  20000000) >= srcStat->WriteTime() &&
-						safe_add(dstStat->WriteTime(), -20000000) <= srcStat->WriteTime() &&
-						((info.flags & COMPARE_CREATETIME) == 0
-					||	safe_add(dstStat->CreateTime(),  10000000) >= srcStat->CreateTime() &&
-						safe_add(dstStat->CreateTime(), -10000000) <= srcStat->CreateTime()))
+					if (
+						(
+						(safe_add(dstStat->WriteTime(), 20000000) >= srcStat->WriteTime() &&
+							safe_add(dstStat->WriteTime(), -20000000) <= srcStat->WriteTime())
+							||
+							(
+							(info.flags & DST_PROB) &&
+								(
+								(safe_add(dstStat->WriteTime(), 36020000000) >= srcStat->WriteTime() &&
+									safe_add(dstStat->WriteTime(), 35980000000) <= srcStat->WriteTime())
+									|| (safe_add(dstStat->WriteTime(), -35980000000) >= srcStat->WriteTime() &&
+										safe_add(dstStat->WriteTime(), -36020000000) <= srcStat->WriteTime())
+								)
+							)
+						)
+							&&
+							(((info.flags & COMPARE_CREATETIME) == 0)
+								|| safe_add(dstStat->CreateTime(), 10000000) >= srcStat->CreateTime() &&
+								safe_add(dstStat->CreateTime(), -10000000) <= srcStat->CreateTime())
+					   )
 						return	FALSE;
 				}
 			}

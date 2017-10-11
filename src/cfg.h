@@ -186,6 +186,7 @@ public:
 	int		finishNotify;
 	int		finishNotifyTout;
 	BOOL	preventSleep;
+	BOOL	dstProb;
 
 	int		infoSpan;	// information update timing (0:250msec, 1:500msec, 2:1000sec)
 	BOOL	isTopLevel;

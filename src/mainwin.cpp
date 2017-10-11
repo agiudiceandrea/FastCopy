@@ -1584,6 +1584,7 @@ BOOL TMainDlg::ExecCopy(DWORD exec_flags)
 		| (!is_listing && fileLogMode != NO_FILELOG ? FastCopy::LISTING : 0)
 		| (IsDlgButtonChecked(ACL_CHECK) ? FastCopy::WITH_ACL : 0)
 		| (IsDlgButtonChecked(STREAM_CHECK) ? FastCopy::WITH_ALTSTREAM : 0)
+		| (cfg.dstProb ? FastCopy::DST_PROB : 0)
 		| (cfg.aclErrLog ? FastCopy::REPORT_ACL_ERROR : 0)
 		| (cfg.streamErrLog ? FastCopy::REPORT_STREAM_ERROR : 0)
 		| (!is_delete_mode && IsDlgButtonChecked(ESTIMATE_CHECK) && !is_listing ?

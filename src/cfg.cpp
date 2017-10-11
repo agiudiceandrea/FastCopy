@@ -106,6 +106,7 @@
 #define STATUSFONT_KEY			"status_font"
 #define STATUSFONTSIZE_KEY		"status_fontsize"
 #define PREVENTSLEEP_KEY		"prevent_sleep"
+#define DSTPROB_KEY				"dst_prob"
 
 #define NONBUFMINSIZENTFS_KEY	"nonbuf_minsize_ntfs2"
 #define NONBUFMINSIZEFAT_KEY	"nonbuf_minsize_fat"
@@ -580,6 +581,7 @@ BOOL Cfg::ReadIni(WCHAR *user_dir, WCHAR *virtual_dir)
 	finishNotify	= ini.GetInt(FINISHNOTIFY_KEY, 1);
 	finishNotifyTout = ini.GetInt(FINISHNOTIFYTOUT_KEY, FINISH_NOTIFY_DEFAULT);
 	preventSleep	= ini.GetInt(PREVENTSLEEP_KEY, 1);
+	dstProb			= ini.GetInt(DSTPROB_KEY, FALSE);
 
 	infoSpan		= ini.GetInt(INFOSPAN_KEY, DEFAULT_INFOSPAN);
 	if (infoSpan < 0 || infoSpan > 2) infoSpan = DEFAULT_INFOSPAN;
@@ -834,6 +836,7 @@ BOOL Cfg::WriteIni(void)
 //	ini.SetInt(FINISHNOTIFYTOUT_KEY, finishNotifyTout);
 	ini.SetInt(PREVENTSLEEP_KEY, preventSleep);
 	ini.SetInt(INFOSPAN_KEY, infoSpan);
+	ini.SetInt(DSTPROB_KEY, dstProb);
 
 	char	val[256];
 	sprintf(val, "%d,%d,%d,%d", winpos.x, winpos.y, winsize.cx, winsize.cy);

@@ -172,6 +172,7 @@ BOOL TSetupSheet::SetData()
 		SendDlgItemMessage(HASH_COMBO, CB_SETCURSEL,
 			cfg->hashMode <= Cfg::SHA256 ? int(cfg->hashMode) : 3, 0);
 		SetDlgItemText(TIMEGRACE_EDIT, Fmt("%lld", cfg->timeDiffGrace));
+		CheckDlgButton(DSTPROB_CHECK, cfg->dstProb);
 	}
 	else if (resId == DEL_SHEET) {
 		CheckDlgButton(NSA_CHECK, cfg->enableNSA);
@@ -296,6 +297,7 @@ BOOL TSetupSheet::GetData()
 		if (GetDlgItemText(TIMEGRACE_EDIT, buf, sizeof(buf)) > 0) {
 			cfg->timeDiffGrace = strtoll(buf, 0, 10);
 		}
+		cfg->dstProb = IsDlgButtonChecked(DSTPROB_CHECK);
 	}
 	else if (resId == DEL_SHEET) {
 		cfg->enableNSA        = IsDlgButtonChecked(NSA_CHECK);
